@@ -1,0 +1,98 @@
+plugins {
+    id 'org.springframework.boot' version "${spring_boot_version}"
+    id 'io.spring.dependency-management' version "${spring_dependency_management_version}"
+    id 'java'
+    id 'org.sonarqube' version '3.0' //3.2.0
+    id 'jacoco'
+    id 'war'
+}
+
+repositories {
+    mavenCentral()
+}
+
+bootJar {
+    mainClass = 'com.epam.esm.Application'
+}
+bootWar {
+    mainClass = 'com.epam.esm.Application'
+}
+war {
+    enabled = false
+}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+    apply plugin: 'application'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'org.sonarqube'
+    apply plugin: 'jacoco'
+    apply plugin: 'war'
+
+    group = 'com.epam.esm'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
+
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        providedRuntime group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.5.0'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+        annotationProcessor 'org.hibernate:hibernate-jpamodelgen'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-validation'
+        implementation group: 'org.springframework.boot', name: 'spring-boot-devtools'
+        implementation group: 'org.modelmapper', name: 'modelmapper', version: "${model_mapper_version}"
+
+        implementation group: 'io.jsonwebtoken', name: 'jjwt', version: "${jsonwebtoken_version}"
+
+        implementation group: 'org.springframework.security.oauth', name: 'spring-security-oauth2',
+                version: "${spring_security_version}"
+
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombok_version}"
+        annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "${jaskson_version}"
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "${jaskson_version}"
+        implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: "${jaskson_version}"
+
+        implementation group: 'org.openapitools', name: 'jackson-databind-nullable', version: "${jackson_databind_nullable_version}"
+
+    }
+    test {
+        useJUnitPlatform()
+        finalizedBy jacocoTestReport
+    }
+}
+
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
+    reports {
+        xml.enabled true
+        html.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/test/report.xml")
+        csv.enabled false
+    }
+}
+
+sonarqube {
+    properties {
+        property 'sonar.core.codeCoveragePlugin', 'jacoco'
+        property('sonar.login', '8c55e294918c9585890b6159e46302979d34c492')
+        property('sonar.coverage.jacoco.xmlReportPaths', "${buildDir}/reports/jacoco/test/report.xml")
+    }
+}
+
+
+
