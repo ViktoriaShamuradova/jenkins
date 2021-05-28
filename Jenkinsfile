@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                git branch: 'main', changelog: true, poll: true, url: 'https://github.com/ViktoriaShamuradova/MJS-School/tree/main/module4'
+                git branch: 'main', changelog: true, poll: true, url: 'https://github.com/ViktoriaShamuradova/jenkins'
             }
         }
         stage("Build, tests") {
