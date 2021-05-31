@@ -28,13 +28,13 @@ public class OrderServiceImpl implements OrderService {
     private final UserDao userDao;
     private final GenericMapper<OrderDto, Order> mapper;
     private final CertificateDao certificateDao;
-    public static final String ERROR_MESSAGE_ID = "id= ";
+    public static final String MESSAGE_ID = "id= ";
 
     @Override
     public OrderDto findById(Long id) {
         Order order = orderDao.findById(id).orElseThrow(() ->
                 new NoSuchResourceException(ExceptionCode.NO_SUCH_ORDER_FOUND.getErrorCode(),
-                        ERROR_MESSAGE_ID + id));
+                        MESSAGE_ID + id));
 
         return mapper.toDTO(order);
     }
@@ -44,12 +44,12 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto create(Cart cart) {
         Order order = new Order(cart.getUserId());
         userDao.findById(cart.getUserId()).orElseThrow(() ->
-                new NoSuchResourceException(ExceptionCode.NO_SUCH_USER_FOUND.getErrorCode(), ERROR_MESSAGE_ID + cart.getUserId()));
+                new NoSuchResourceException(ExceptionCode.NO_SUCH_USER_FOUND.getErrorCode(), MESSAGE_ID + cart.getUserId()));
         for (CartItem cartItem : cart.getCartItems()) {
             Certificate certificate = certificateDao.findById(cartItem.getIdCertificate()).orElseThrow(() ->
                     new NoSuchResourceException(ExceptionCode
                             .NO_SUCH_CERTIFICATE_FOUND
-                            .getErrorCode(), ERROR_MESSAGE_ID + cartItem.getIdCertificate()));
+                            .getErrorCode(), MESSAGE_ID + cartItem.getIdCertificate()));
             OrderItem orderItem = new OrderItem(cartItem);
             orderItem.setPriceOfCertificate(certificate.getPrice());
             order.add(orderItem);

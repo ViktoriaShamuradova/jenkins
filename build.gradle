@@ -6,18 +6,19 @@ plugins {
     id 'jacoco'
     id 'war'
 }
-
 repositories {
     mavenCentral()
 }
-
-bootJar {
-    mainClass = 'com.epam.esm.Application'
+war {
+    enabled = false
 }
 bootWar {
-    mainClass = 'com.epam.esm.Application'
+    enabled = false
 }
-war {
+jar {
+    enabled = false
+}
+bootJar {
     enabled = false
 }
 subprojects {
@@ -33,7 +34,6 @@ subprojects {
     group = 'com.epam.esm'
     version = '0.0.1-SNAPSHOT'
     sourceCompatibility = '11'
-
 
     repositories {
         mavenCentral()

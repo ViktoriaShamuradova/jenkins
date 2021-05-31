@@ -4,15 +4,14 @@ dependencies {
     implementation project(':auth')
     compile group: 'org.hibernate', name: 'hibernate-validator', version: "${hibernate_validator_version}"
 }
-
-bootJar {
-    enabled = true
-    mainClass = 'com.epam.esm.Application'
-}
 jar {
-    enabled = true
+    enabled = false
 }
 war {
     enabled = true
 }
+bootWar {
+    mainClass = 'com.epam.esm.Application'
+}
+
 
