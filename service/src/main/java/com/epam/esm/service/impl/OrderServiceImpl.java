@@ -33,7 +33,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto findById(Long id) {
         Order order = orderDao.findById(id).orElseThrow(() ->
-                new NoSuchResourceException(ExceptionCode.NO_SUCH_ORDER_FOUND.getErrorCode(), "id= " + id));
+                new NoSuchResourceException(ExceptionCode.NO_SUCH_ORDER_FOUND.getErrorCode(),
+                        ERROR_MESSAGE_ID + id));
 
         return mapper.toDTO(order);
     }
@@ -42,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto create(Cart cart) {
         Order order = new Order(cart.getUserId());
-        userDao.findById(cart.getUserId()).orElseThrow(()->
-                new NoSuchResourceException(ExceptionCode.NO_SUCH_USER_FOUND.getErrorCode(), "id= "+cart.getUserId()));
+        userDao.findById(cart.getUserId()).orElseThrow(() ->
+                new NoSuchResourceException(ExceptionCode.NO_SUCH_USER_FOUND.getErrorCode(), ERROR_MESSAGE_ID + cart.getUserId()));
         for (CartItem cartItem : cart.getCartItems()) {
             Certificate certificate = certificateDao.findById(cartItem.getIdCertificate()).orElseThrow(() ->
                     new NoSuchResourceException(ExceptionCode
