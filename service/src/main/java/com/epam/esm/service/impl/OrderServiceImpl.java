@@ -28,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
     private final UserDao userDao;
     private final GenericMapper<OrderDto, Order> mapper;
     private final CertificateDao certificateDao;
+    public static final String ERROR_MESSAGE_ID = "id= ";
 
     @Override
     public OrderDto findById(Long id) {
@@ -47,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
             Certificate certificate = certificateDao.findById(cartItem.getIdCertificate()).orElseThrow(() ->
                     new NoSuchResourceException(ExceptionCode
                             .NO_SUCH_CERTIFICATE_FOUND
-                            .getErrorCode(), "id= " + cartItem.getIdCertificate()));
+                            .getErrorCode(), ERROR_MESSAGE_ID + cartItem.getIdCertificate()));
             OrderItem orderItem = new OrderItem(cartItem);
             orderItem.setPriceOfCertificate(certificate.getPrice());
             order.add(orderItem);
