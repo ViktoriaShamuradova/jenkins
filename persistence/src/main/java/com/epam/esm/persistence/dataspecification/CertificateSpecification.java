@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class CertificateSpecification implements Specification<Certificate> {
 
-    private final CertificateCriteriaInfo criteriaInfo;
+    private final transient CertificateCriteriaInfo criteriaInfo;
     private final List<Predicate> conditions = new ArrayList<>();
 
     public CertificateSpecification(CertificateCriteriaInfo criteriaInfo) {

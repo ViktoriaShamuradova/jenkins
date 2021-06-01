@@ -49,7 +49,7 @@ public class AuthController {
      * with links
      */
     @PostMapping("/login")
-    public ResponseEntity authenticate(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<Object> authenticate(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(securityService.authenticate(authenticationRequest));
     }
 }

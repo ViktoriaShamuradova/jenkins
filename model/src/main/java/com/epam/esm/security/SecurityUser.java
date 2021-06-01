@@ -11,7 +11,6 @@ import java.util.List;
 
 public class SecurityUser implements UserDetails {
 
-    private Long id;
     private String email;
     private String password;
     private List<SimpleGrantedAuthority> authorities;

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class UserSpecification implements Specification<User> {
 
-    private final UserCriteriaInfo criteriaInfo;
+    private final transient UserCriteriaInfo criteriaInfo;
     private final List<Predicate> conditions = new ArrayList<>();
 
     public UserSpecification(UserCriteriaInfo criteriaInfo) {

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class OrderSpecification implements Specification<Order> {
 
-    private final OrderCriteriaInfo criteriaInfo;
+    private final transient OrderCriteriaInfo criteriaInfo;
     private final List<Predicate> conditions = new ArrayList<>();
 
     public OrderSpecification(OrderCriteriaInfo criteriaInfo) {

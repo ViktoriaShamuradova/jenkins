@@ -14,7 +14,7 @@ import java.util.List;
 
 public class TagSpecification implements Specification<Tag> {
 
-    private final TagCriteriaInfo criteriaInfo;
+    private final transient TagCriteriaInfo criteriaInfo;
     private final List<Predicate> conditions = new ArrayList<>();
 
     public TagSpecification(TagCriteriaInfo criteriaInfo) {
