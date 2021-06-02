@@ -24,11 +24,11 @@ pipeline {
         }
         stage("Check quality gate") {
             steps {
-                input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
-//                def qg = waitForQualityGate ()
-//                if(qg.status != 'OK') {
-//                    error "Pipeline aborted to a quality gate failure: ${qg.status}"
-//                }
+               // input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
+                def qg = waitForQualityGate ()
+                if(qg.status != 'OK') {
+                    error "Pipeline aborted to a quality gate failure: ${qg.status}"
+                }
             }
         }
         stage("Deploy") {
