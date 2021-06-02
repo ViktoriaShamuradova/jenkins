@@ -15,11 +15,16 @@ pipeline {
                 }
             }
         }
-        stage("SonarQube") {
+        stage("SonarQube analysis") {
             steps {
                 script {
                     bat 'gradle sonarqube'
                 }
+            }
+        }
+        stage("Quality gate") {
+            steps {
+                waitForQualityGate abortPipeline: true
             }
         }
         stage("Deploy") {
