@@ -11,20 +11,20 @@ pipeline {
         stage("Build, tests") {
             steps {
                 script {
-                    sh './gradlew clean build codeCoverageReport'
+                    bat './gradlew clean build codeCoverageReport'
                 }
             }
         }
         stage("SonarQube analysis") {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh "./gradlew sonarqube"
+                    bat "./gradlew sonarqube"
                 }
             }
         }
         stage("Check quality gate") {
             steps {
-                waitForQualityGate abortPipeline: true
+                input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
             }
         }
         stage("Deploy") {
