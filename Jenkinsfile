@@ -11,7 +11,7 @@ pipeline {
         stage("Build, tests") {
             steps {
                 script {
-                    bat './gradlew clean build codeCoverageReport'
+                    sh './gradlew clean build codeCoverageReport'
                 }
             }
         }
