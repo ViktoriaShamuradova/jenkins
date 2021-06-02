@@ -24,8 +24,7 @@ pipeline {
         }
         stage("Check quality gate") {
             steps {
-               // input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
-                waitForQualityGate abortPipeline: true
+                input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
             }
         }
         stage("Deploy") {
