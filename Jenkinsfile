@@ -24,7 +24,21 @@ pipeline {
         }
         stage("Check quality gate") {
             steps {
-                input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
+                
+                def tries = 0
+                sonarResultStatus = "PENDING"
+                while ((sonarResultStatus == "PENDING" || sonarResultStatus == "IN_PROGRESS") && tries++ < 5) {
+                    try {
+                        sonarResult = waitForQualityGate abortPipeline: true
+                        sonarResultStatus = sonarResult.status
+                    } catch(ex) {
+                        echo "caught exception ${ex}"
+                    }
+                    echo "waitForQualityGate status is ${sonarResultStatus} (tries=${tries})"
+                }
+                if (sonarResultStatus != 'OK') {
+                    error "Quality gate failure for SonarQube: ${sonarResultStatus}"
+                }
             }
         }
         stage("Deploy") {
