@@ -22,11 +22,6 @@ pipeline {
                 }
             }
         }
-        stage("Check quality gate") {
-            steps {
-                input message: 'Do you want to approve the deploy in production?', ok: 'Yes'
-            }
-        }
         stage("Deploy") {
             steps {
                 deploy adapters: [tomcat9(credentialsId: '4cb373a7-e745-4feb-8267-07e8d867311f',
