@@ -14,7 +14,6 @@ import com.epam.esm.service.CertificateService;
 import com.epam.esm.service.exception.ExceptionCode;
 import com.epam.esm.service.exception.NoSuchResourceException;
 import com.epam.esm.service.modelmapper.GenericMapper;
-import com.epam.esm.service.modelmapper.impl.CertificateMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

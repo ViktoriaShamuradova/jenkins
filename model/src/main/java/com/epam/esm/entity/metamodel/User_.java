@@ -23,7 +23,6 @@ public class User_ {
     public static volatile SingularAttribute<User, String> password;
     public static volatile SingularAttribute<User, Role> role;
     public static volatile SingularAttribute<User, Status> status;
-    public static volatile SingularAttribute<User, List<Order>> orders;
     public static volatile SingularAttribute<User, Long> id;
 
     public static final String NAME = "name";
@@ -34,7 +33,6 @@ public class User_ {
     public static final String PASSWORD = "password";
     public static final String ROLE = "role";
     public static final String STATUS = "status";
-    public static final String ORDERS = "orders";
     public static final String ID = "id";
 
 }

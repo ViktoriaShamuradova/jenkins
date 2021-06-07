@@ -15,6 +15,6 @@ public final class Message {
     public static final String ENTER_COUNT = "Enter count";
     public static final String CERTIFICATE_NAME = "name must contain from 1 to 100 characters without punctuation marks";
     public static final String CERTIFICATE_DESCRIPTION = "description must contain from 1 to 300 characters with punctuation marks";
-    public static final String CERTIFICATE_DESCRIPTION_OR_NAME = "name or "+CERTIFICATE_DESCRIPTION;
-    public static final String ORDER_ITEM_MAX_COUNT= "Exceeding the maximum quantity " + OrderConst.MAX_COUNT_ITEM;
+    public static final String CERTIFICATE_DESCRIPTION_OR_NAME = "name or " + CERTIFICATE_DESCRIPTION;
+    public static final String ORDER_ITEM_MAX_COUNT = "Exceeding the maximum quantity " + OrderConst.MAX_COUNT_ITEM;
 }
