@@ -125,7 +125,6 @@ public ResponseEntity<ExceptionResponse> handleAuthenticationException(HttpReque
                                                                    HttpServletRequest request,
                                                                    ExceptionCode exceptionCode,
                                                                    HttpStatus httpStatus) {
-        e.printStackTrace();
         ExceptionResponse exceptionResponse = new ExceptionResponse();
         exceptionResponse.setErrorCode(exceptionCode.getErrorCode());
         exceptionResponse.setErrorMessage(resourceBundle.getMessage(exceptionCode.getErrorCode(), new Object[]{},

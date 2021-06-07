@@ -21,10 +21,9 @@ import java.util.List;
 @Table(name = "users", schema="mjs")
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true, exclude = {"orders"})
+@EqualsAndHashCode(callSuper = true)
 @Data
 @EntityListeners(GeneralEntityListener.class)
-@ToString(exclude = "orders")
 @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email=:email")
 public class User extends com.epam.esm.entity.Entity<Long> {
 
@@ -37,9 +36,6 @@ public class User extends com.epam.esm.entity.Entity<Long> {
     @Column(name = "last_update_date", columnDefinition = "TIMESTAMP")
     private Instant lastUpdateDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Order> orders;
-
     @Column(name = "email")
     private String email;
     @Column(name = "password")
@@ -51,11 +47,4 @@ public class User extends com.epam.esm.entity.Entity<Long> {
     @Enumerated(value = EnumType.STRING)
     private Status status;
 
-    public void addOrder(Order order) {
-        if (orders == null) {
-            orders = new ArrayList<>();
-        }
-        orders.add(order);
-        order.setUser(this);
-    }
 }
